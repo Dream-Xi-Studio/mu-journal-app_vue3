@@ -1,0 +1,164 @@
+@use "sass:math";
+
+// 宽高
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// 最小宽高
+@mixin min-size($width, $height) {
+  min-width: $width;
+  min-height: $height;
+}
+
+// 居中
+@mixin center($type) {
+  @if $type==text {
+    text-align: center;
+  }
+
+  @else if $type==flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @else if $type==absolute {
+    position: $type;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @else if $type==fixed {
+    position: $type;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// 背景图
+@mixin image($url, $color: transparent, $size: cover, $position: center) {
+  background: $color;
+  background-image: $url;
+  background-repeat: no-repeat;
+  background-size: $size;
+  background-position: $position;
+}
+
+// 弹性布局
+@mixin flex($justify: null, $align: null, $direction: null) {
+  display: flex;
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $direction {
+    flex-direction: $direction;
+  }
+}
+
+// 字体
+@mixin tx($size, $height: $size) {
+  font-size: $size;
+  line-height: $height;
+}
+
+// 线条
+@mixin line($direction, $top-or-left: 0, $bottom-or-right: 0, $width: 1px, $style: solid, $color: transparent) {
+  &::after {
+    position: absolute;
+
+    @if $direction==top {
+      top: 0;
+      left: $top-or-left;
+      right: $bottom-or-right;
+    }
+
+    @else if $direction==bottom {
+      left: $top-or-left;
+      right: $bottom-or-right;
+      bottom: 0;
+    }
+
+    @else if $direction==left {
+      top: $top-or-left;
+      left: 0;
+      bottom: $bottom-or-right;
+    }
+
+    @else if $direction==right {
+      top: $top-or-left;
+      right: 0;
+      bottom: $bottom-or-right;
+    }
+
+    content: '';
+    border-#{$direction}: $width $style $color;
+  }
+}
+
+// 省略
+@mixin omit($number: 1, $line-height: 0) {
+  @if $line-height>0 {
+    max-height: $number * $line-height;
+  }
+
+  display: -webkit-box;
+  overflow: hidden;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $number;
+  -webkit-box-orient: vertical;
+}
+
+// 清除浮动
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// 底部适配
+@mixin bottom($bottom: 0px) {
+  bottom: calc($bottom + constant(safe-area-inset-bottom));
+  bottom: calc($bottom + env(safe-area-inset-bottom));
+}
+
+// 适配主流设备
+$deviceList: 240px,
+320px,
+360px,
+375px,
+384px,
+400px,
+411px,
+414px,
+424px,
+480px,
+540px,
+640px;
+// 预设基准值
+$baseFontSize: 25px;
+// 设计稿尺寸
+$psdWidth: 375px;
+
+// 移动端适配
+@mixin adapterMixin($index: 1) {
+  @for $index from 1 through length($deviceList) {
+    @media (min-width: nth($deviceList, $index)) {
+      html {
+        font-size: math.div($baseFontSize, $psdWidth) * nth($deviceList, $index);
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.form {
+  padding: 0.4rem 0.64rem 0;
+
+  .remarks {
+    padding: 0;
+    background: transparent;
+
+    .van-field__control {
+      font-size: 0.56rem;
+      line-height: 0.8rem;
+      color: var(--meng-primary-color);
+      letter-spacing: 0.04rem;
+
+      &::-webkit-input-placeholder {
+        color: var(--meng-primary-placeholder);
+      }
+    }
+
+    .van-field__clear {
+      font-size: 0.8rem;
+      line-height: 0.8rem;
+      color: var(--meng-primary-color);
+    }
+
+    .van-field__word-limit {
+      margin-top: 0.16rem;
+      font-size: 0.48rem;
+      line-height: 0.56rem;
+      color: var(--meng-primary-placeholder);
+
+      .van-field__word-num {
+        color: var(--meng-primary-color);
+      }
+    }
+  }
+
+  .uploader {
+    .van-uploader__upload {
+      margin: 0;
+    }
+  }
+
+  .bt {
+    padding-top: 3.2rem;
+  }
+
+  .btb {
+    padding: 3.2rem 0 2rem;
+  }
+
+  .submit {
+    height: 2.08rem;
+    line-height: 2.08rem;
+    border-radius: 0.24rem;
+
+    span {
+      font-size: 0.64rem;
+      line-height: 0.88rem;
+      color: var(--meng-inverse-color);
+    }
+  }
+}
